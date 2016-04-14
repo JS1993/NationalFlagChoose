@@ -52,13 +52,22 @@
  */
 -(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     if (component==0) {
-        UILabel* countryLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 30)];
-        countryLabel.text=[self.flags[row] name];
-        return countryLabel;
+        //判断是否有可以重用的view，如果没有则创建，有则直接用
+        if (view==nil) {
+            UILabel* countryLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 70, 30)];
+            countryLabel.text=[self.flags[row] name];
+            return countryLabel;
+        }else{
+            return view;
+        }
     }else{
-        UIImageView* countryImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 30)];
-        countryImageView.image=[UIImage imageNamed:(NSString*)[self.flags[row] icon]];
-        return countryImageView;
+        if (view==nil) {
+            UIImageView* countryImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 30)];
+            countryImageView.image=[UIImage imageNamed:(NSString*)[self.flags[row] icon]];
+            return countryImageView;
+        }else{
+            return view;
+        }
     }
 }
 /**
